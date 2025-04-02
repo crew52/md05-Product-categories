@@ -49,11 +49,16 @@ function ProductCreate() {
                 <CardHeader title="Create Product" sx={{ textAlign: "center" }} />
                 <CardContent>
                     <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                        <TextField label="Product Name" name="name" fullWidth required value={formik.values.name} onChange={formik.handleChange} error={formik.touched.name && Boolean(formik.errors.name)} helperText={formik.touched.name && formik.errors.name} />
+                        <TextField label="Product Name" name="name" fullWidth required value={formik.values.name}
+                                   onChange={formik.handleChange} error={formik.touched.name && Boolean(formik.errors.name)}
+                                   helperText={formik.touched.name && formik.errors.name} />
 
                         <FormControl fullWidth>
                             <InputLabel>Category</InputLabel>
-                            <Select name="categoryId" value={formik.values.categoryId} onChange={formik.handleChange} error={formik.touched.categoryId && Boolean(formik.errors.categoryId)}>
+                            <Select name="categoryId"
+                                    value={formik.values.categoryId}
+                                    onChange={(event) => formik.setFieldValue("categoryId", Number(event.target.value))}
+                                    error={formik.touched.categoryId && Boolean(formik.errors.categoryId)}>
                                 <MenuItem value="">Select Category</MenuItem>
                                 {categories.map(cat => (
                                     <MenuItem key={cat.id} value={cat.id}>{cat.name}</MenuItem>
