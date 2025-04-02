@@ -142,9 +142,11 @@ function ProductList() {
                                 <td>{new Date(product.createdAt).toLocaleDateString()}</td>
                                 <td>
                                     <div className="d-flex justify-content-center">
-                                        <button className="btn btn-info btn-sm me-1">
-                                            <i className="bi bi-eye"></i>
-                                        </button>
+                                        <Link to={`/products/${product.id}/detail`}>
+                                            <button className="btn btn-info btn-sm me-1">
+                                                <i className="bi bi-eye"></i>
+                                            </button>
+                                        </Link>
                                         <Link to={`/products/${product.id}/edit`}>
                                             <button className="btn btn-warning btn-sm me-1">
                                                 <i className="bi bi-pencil"></i>
