@@ -6,7 +6,7 @@ import {
     CardHeader,
     FormControl,
     FormControlLabel,
-    FormLabel, Radio,
+    FormLabel, Grid, Radio,
     RadioGroup,
     TextField
 } from "@mui/material";
@@ -75,96 +75,85 @@ function ProductEdit() {
     };
 
     return (
-        <Card>
-            <CardHeader title="Update Product" />
-            <CardContent>
-                <Box
-                    component="form"
-                    sx={{'& .MuiTextField-root': {m: 1, width: '50ch'}}}
-                    noValidate
-                    autoComplete="off"
-                    onSubmit={updateProductForm.handleSubmit}
-                >
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Name"
-                            name="name"
-                            type="text"
-                            value={updateProductForm.values.name}
-                            error={Boolean(updateProductForm.errors.name && updateProductForm.touched.name)}
-                            helperText={updateProductForm.errors.name && updateProductForm.touched.name && updateProductForm.errors.name}
-                            onChange={updateProductForm.handleChange}
-                        />
-                    </div>
+        <Grid container justifyContent="center" alignItems="center" minHeight="100vh">
+            <Grid item xs={12} sm={8} md={6} lg={5}>
+                <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3 }}>
+                    <CardHeader title="Update Product" sx={{ textAlign: "center", fontWeight: "bold" }} />
+                    <CardContent>
+                        <Box
+                            component="form"
+                            sx={{ '& .MuiTextField-root': { m: 1, width: '100%' }, display: "flex", flexDirection: "column", gap: 2 }}
+                            noValidate
+                            autoComplete="off"
+                            onSubmit={updateProductForm.handleSubmit}
+                        >
+                            <TextField
+                                required
+                                label="Name"
+                                name="name"
+                                type="text"
+                                value={updateProductForm.values.name}
+                                error={Boolean(updateProductForm.errors.name && updateProductForm.touched.name)}
+                                helperText={updateProductForm.errors.name && updateProductForm.touched.name && updateProductForm.errors.name}
+                                onChange={updateProductForm.handleChange}
+                            />
 
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Price"
-                            type="number"
-                            name="price"
-                            value={updateProductForm.values.price}
-                            error={Boolean(updateProductForm.errors.price && updateProductForm.touched.price)}
-                            helperText={updateProductForm.errors.price && updateProductForm.touched.price && updateProductForm.errors.price}
-                            onChange={updateProductForm.handleChange}
-                        />
-                    </div>
+                            <TextField
+                                required
+                                label="Price"
+                                type="number"
+                                name="price"
+                                value={updateProductForm.values.price}
+                                error={Boolean(updateProductForm.errors.price && updateProductForm.touched.price)}
+                                helperText={updateProductForm.errors.price && updateProductForm.touched.price && updateProductForm.errors.price}
+                                onChange={updateProductForm.handleChange}
+                            />
 
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Rating"
-                            type="number"
-                            name="rating"
-                            value={updateProductForm.values.rating}
-                            error={Boolean(updateProductForm.errors.rating && updateProductForm.touched.rating)}
-                            helperText={updateProductForm.errors.rating && updateProductForm.touched.rating && updateProductForm.errors.rating}
-                            onChange={updateProductForm.handleChange}
-                        />
-                    </div>
+                            <TextField
+                                required
+                                label="Rating"
+                                type="number"
+                                name="rating"
+                                value={updateProductForm.values.rating}
+                                error={Boolean(updateProductForm.errors.rating && updateProductForm.touched.rating)}
+                                helperText={updateProductForm.errors.rating && updateProductForm.touched.rating && updateProductForm.errors.rating}
+                                onChange={updateProductForm.handleChange}
+                            />
 
-                    <div>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Stock"
-                            type="number"
-                            name="stock"
-                            value={updateProductForm.values.stock}
-                            error={Boolean(updateProductForm.errors.stock && updateProductForm.touched.stock)}
-                            helperText={updateProductForm.errors.stock && updateProductForm.touched.stock && updateProductForm.errors.stock}
-                            onChange={updateProductForm.handleChange}
-                        />
-                    </div>
+                            <TextField
+                                required
+                                label="Stock"
+                                type="number"
+                                name="stock"
+                                value={updateProductForm.values.stock}
+                                error={Boolean(updateProductForm.errors.stock && updateProductForm.touched.stock)}
+                                helperText={updateProductForm.errors.stock && updateProductForm.touched.stock && updateProductForm.errors.stock}
+                                onChange={updateProductForm.handleChange}
+                            />
 
-                    <div>
-                        <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Role</FormLabel>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                value={currentCategory}
-                                name="roleId"
-                                onChange={handleChangeCategory}
-                            >
-                                {categories.map(category => (
-                                    <FormControlLabel key={category.id} value={category.id} control={<Radio/>}
-                                                      label={category.name}/>
-                                ))}
-                            </RadioGroup>
-                            {updateProductForm.errors.categoryId && updateProductForm.touched.categoryId && (
-                                <div style={{color: 'red'}}>{updateProductForm.errors.categoryId}</div>
-                            )}
-                        </FormControl>
-                    </div>
+                            <FormControl>
+                                <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    value={currentCategory}
+                                    name="categoryId"
+                                    onChange={handleChangeCategory}
+                                >
+                                    {categories.map(category => (
+                                        <FormControlLabel key={category.id} value={category.id} control={<Radio />} label={category.name} />
+                                    ))}
+                                </RadioGroup>
+                                {updateProductForm.errors.categoryId && updateProductForm.touched.categoryId && (
+                                    <div style={{ color: 'red' }}>{updateProductForm.errors.categoryId}</div>
+                                )}
+                            </FormControl>
 
-                    <Button type="submit" variant="contained">Update</Button>
-                </Box>
-            </CardContent>
-        </Card>
+                            <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, py: 1.5 }}>Update</Button>
+                        </Box>
+                    </CardContent>
+                </Card>
+            </Grid>
+        </Grid>
     );
 }
 
