@@ -1,17 +1,31 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import ProductService from "../../services/product.service.js";
+import {toast} from "react-toastify";
 
 function ProductList() {
+    // state danh sach product
     const [products, setProducts] = useState([]);
 
+    // state load lai data
+    const [reloadData, setReloadData] = useState(false);
+
+    // lay ra danh sach Products
     useEffect(() => {
         ProductService.getAllProducts().then(res => {
-            console.log(res.data);
             setProducts(res.data);
         });
-    }, []);
+    }, [reloadData]);
 
+    // delete Product
+    const handleDeleteProduct = (id) => {
+        if (window.confirm('Are you sure you want to delete?')) {
+            ProductService.deleteProductById(id).then(() => {
+                toast.success("Product deleted successfully");
+                setReloadData(!reloadData);
+            });
+        }
+    };
 
     return (
         <div className="container mt-4">
@@ -74,7 +88,7 @@ function ProductList() {
                                     <button className="btn btn-warning btn-sm me-1">
                                         <i className="bi bi-pencil"></i>
                                     </button>
-                                    <button className="btn btn-danger btn-sm">
+                                    <button className="btn btn-danger btn-sm" onClick={() => handleDeleteProduct(product.id)}>
                                         <i className="bi bi-trash"></i>
                                     </button>
                                 </div>
