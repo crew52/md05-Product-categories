@@ -23,40 +23,13 @@
   ],
   "products": [
     {
-      "id": 1,
-      "name": "Wireless Headphones",
-      "categoryId": 1,
-      "price": 59.99,
-      "rating": 4.5,
-      "stock": 25,
-      "createdAt": "2024-03-10"
-    },
-    {
-      "id": 2,
-      "name": "Smartphone",
-      "categoryId": 1,
-      "price": 699.99,
-      "rating": 4.7,
-      "stock": 15,
-      "createdAt": "2024-02-25"
-    },
-    {
-      "id": 3,
-      "name": "Men's T-Shirt",
-      "categoryId": 2,
-      "price": 14.99,
-      "rating": 4.2,
-      "stock": 50,
-      "createdAt": "2024-01-15"
-    },
-    {
-      "id": 4,
       "name": "Blender",
-      "categoryId": 3,
+      "categoryId": 2,
       "price": 39.99,
       "rating": 4.3,
       "stock": 30,
-      "createdAt": "2024-03-01"
+      "createdAt": "2024-03-01",
+      "id": 4
     },
     {
       "id": 5,
@@ -68,15 +41,6 @@
       "createdAt": "2023-12-20"
     },
     {
-      "id": 6,
-      "name": "Novel: The Great Gatsby",
-      "categoryId": 4,
-      "price": 9.99,
-      "rating": 4.8,
-      "stock": 60,
-      "createdAt": "2023-11-10"
-    },
-    {
       "id": 7,
       "name": "Face Moisturizer",
       "categoryId": 5,
@@ -84,6 +48,32 @@
       "rating": 4.5,
       "stock": 35,
       "createdAt": "2024-02-05"
+    },
+    {
+      "name": "888888",
+      "categoryId": 5,
+      "price": 12.123,
+      "rating": 3,
+      "stock": 28,
+      "id": 12
+    },
+    {
+      "name": "test edi",
+      "categoryId": 1,
+      "price": 12,
+      "rating": 3,
+      "stock": 32,
+      "createdAt": "2025-04-02T13:51:51.449Z",
+      "id": 13
+    },
+    {
+      "name": "999",
+      "categoryId": 3,
+      "price": 99,
+      "rating": 2,
+      "stock": 9,
+      "createdAt": "2025-04-02",
+      "id": 14
     }
   ]
 }
