@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import ProductService from "../../services/product.service.js";
 import {toast} from "react-toastify";
 import CategoryService from "../../services/category.service.js";
+import {Pagination} from "@mui/material";
 
 function ProductList() {
     // state danh sach product
@@ -19,10 +20,15 @@ function ProductList() {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [searchKeyword, setSearchKeyword] = useState("");
 
+    // State phân trang
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 5; // Số lượng products hiển thị trên mỗi trang
+
     // lay ra danh sach Products
     useEffect(() => {
         ProductService.getAllProducts().then(res => {
             setProducts(res.data);
+            setCurrentPage(1);
         });
     }, [reloadData]);
 
@@ -46,6 +52,7 @@ function ProductList() {
         e.preventDefault();
         ProductService.getProductsByNameAndCategory(searchKeyword, selectedCategory).then(res => {
             setProducts(res);
+            setCurrentPage(1);
         });
     };
 
@@ -57,6 +64,13 @@ function ProductList() {
         setSelectedCategory(e.target.value);
     };
 
+    // Sắp xếp danh sách users theo rating tăng dần
+    const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+
+    // Tính toán user hiển thị dựa trên trang hiện tại
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
     return (
         <div className="container mt-4">
@@ -117,32 +131,48 @@ function ProductList() {
                     </tr>
                     </thead>
                     <tbody>
-                    {products.map((product, index) => (
-                        <tr key={product.id}>
-                            <th scope="row">{index + 1}</th>
-                            <td>{product.name}</td>
-                            <td>{product.category?.name || "N/A"}</td>
-                            <td>${product.price}</td>
-                            <td>{product.stock}</td>
-                            <td>{new Date(product.createdAt).toLocaleDateString()}</td>
-                            <td>
-                                <div className="d-flex justify-content-center">
-                                    <button className="btn btn-info btn-sm me-1">
-                                        <i className="bi bi-eye"></i>
-                                    </button>
-                                    <button className="btn btn-warning btn-sm me-1">
-                                        <i className="bi bi-pencil"></i>
-                                    </button>
-                                    <button className="btn btn-danger btn-sm"
-                                            onClick={() => handleDeleteProduct(product.id)}>
-                                        <i className="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
+                    {currentProducts.length > 0 ? (
+                        currentProducts.map((product, index) => (
+                            <tr key={product.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{product.name}</td>
+                                <td>{product.category?.name || "N/A"}</td>
+                                <td>${product.price}</td>
+                                <td>{product.stock}</td>
+                                <td>{new Date(product.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                    <div className="d-flex justify-content-center">
+                                        <button className="btn btn-info btn-sm me-1">
+                                            <i className="bi bi-eye"></i>
+                                        </button>
+                                        <button className="btn btn-warning btn-sm me-1">
+                                            <i className="bi bi-pencil"></i>
+                                        </button>
+                                        <button className="btn btn-danger btn-sm"
+                                                onClick={() => handleDeleteProduct(product.id)}>
+                                            <i className="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="6" className="text-center">No products found</td>
                         </tr>
-                    ))}
+                    )}
                     </tbody>
                 </table>
+
+                {/* Phân trang */}
+                <div className="d-flex justify-content-center mt-3">
+                    <Pagination
+                        count={Math.ceil(products.length / productsPerPage)}
+                        page={currentPage}
+                        onChange={(event, value) => setCurrentPage(value)}
+                        color="primary"
+                    />
+                </div>
             </div>
         </div>
     );
