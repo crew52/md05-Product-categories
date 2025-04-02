@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import { Link } from "react-router";
 import ProductService from "../../services/product.service.js";
 import {toast} from "react-toastify";
+import CategoryService from "../../services/category.service.js";
 
 function ProductList() {
     // state danh sach product
@@ -10,6 +11,13 @@ function ProductList() {
 
     // state load lai data
     const [reloadData, setReloadData] = useState(false);
+
+    // state danh sach categories
+    const [categories, setCategories] = useState([]);
+
+    // stage search
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [searchKeyword, setSearchKeyword] = useState("");
 
     // lay ra danh sach Products
     useEffect(() => {
@@ -28,37 +36,71 @@ function ProductList() {
         }
     };
 
+    useEffect(() => {
+        CategoryService.getAllCategories().then(res => {
+            setCategories(res.data);
+        });
+    }, []);
+
+    const handleSubmitSearch = (e) => {
+        e.preventDefault();
+        ProductService.getProductsByNameAndCategory(searchKeyword, selectedCategory).then(res => {
+            setProducts(res);
+        });
+    };
+
+    const handleSearchInputChange = (e) => {
+        setSearchKeyword(e.target.value);
+    };
+
+    const handleCategoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    };
+
+
     return (
         <div className="container mt-4">
             <h2 className="mb-4">Product Management</h2>
 
             {/* Search & Filter */}
-            <div className="d-flex justify-content-between mb-3">
-                <Link to="/products/create">
-                    <button className="btn btn-primary">
-                        <i className="bi bi-plus-lg"></i> Create
-                    </button>
-                </Link>
-                <div className="d-flex">
-                    <input
-                        type="text"
-                        className="form-control me-2"
-                        placeholder="Search by name..."
-                        style={{width: "200px"}}
-                    />
-                    <select
-                        className="form-select me-2"
-                        style={{width: "150px"}}
-                    >
-                        <option value="">All Categories</option>
-                    </select>
-                    {/* Nút Submit */}
-                    <button className="btn btn-secondary" type="submit">
-                        Submit
-                    </button>
+            <div className="container mb-3">
+                <div className="d-flex justify-content-between align-items-center">
+                    {/* Nút Create */}
+                    <Link to="/products/create">
+                        <button className="btn btn-primary">
+                            <i className="bi bi-plus-lg"></i> Create
+                        </button>
+                    </Link>
+
+                    {/* Form tìm kiếm & Lọc danh mục */}
+                    <form className="d-flex gap-2" onSubmit={handleSubmitSearch}>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Search by name..."
+                            value={searchKeyword}
+                            onChange={handleSearchInputChange}
+                            style={{ width: "200px" }}
+                        />
+
+                        <select
+                            className="form-select"
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
+                            style={{ width: "150px" }}
+                        >
+                            <option value="">All Categories</option>
+                            {categories.map(category => (
+                                <option key={category.id} value={category.id}>{category.name}</option>
+                            ))}
+                        </select>
+
+                        <button className="btn btn-secondary" type="submit">
+                            <i className="bi bi-search"></i> Search
+                        </button>
+                    </form>
                 </div>
             </div>
-
 
             {/* Product Table */}
             <div className="table-responsive">

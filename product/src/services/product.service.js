@@ -12,6 +12,15 @@ class ProductService{
     static async createProduct(data) {
         return await axiosInstance.post("/products", data)
     }
+
+    static async getProductsByNameAndCategory(name, categoryId) {
+        const queryParams = [];
+        if (name) queryParams.push(`name_like=${name}`);
+        if (categoryId) queryParams.push(`categoryId=${categoryId}`);
+        const queryString = queryParams.length ? `?${queryParams.join("&")}&_expand=category` : "?_expand=category";
+
+        return await axiosInstance.get(`/products${queryString}`).then(res => res.data);
+    }
 }
 
 export default ProductService;
