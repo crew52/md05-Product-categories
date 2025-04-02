@@ -1,5 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from "react";
+import { Link } from "react-router";
 import ProductService from "../../services/product.service.js";
 import {toast} from "react-toastify";
 
@@ -33,9 +34,11 @@ function ProductList() {
 
             {/* Search & Filter */}
             <div className="d-flex justify-content-between mb-3">
-                <button className="btn btn-primary">
-                    <i className="bi bi-plus-lg"></i> Create
-                </button>
+                <Link to="/products/create">
+                    <button className="btn btn-primary">
+                        <i className="bi bi-plus-lg"></i> Create
+                    </button>
+                </Link>
                 <div className="d-flex">
                     <input
                         type="text"
@@ -88,7 +91,8 @@ function ProductList() {
                                     <button className="btn btn-warning btn-sm me-1">
                                         <i className="bi bi-pencil"></i>
                                     </button>
-                                    <button className="btn btn-danger btn-sm" onClick={() => handleDeleteProduct(product.id)}>
+                                    <button className="btn btn-danger btn-sm"
+                                            onClick={() => handleDeleteProduct(product.id)}>
                                         <i className="bi bi-trash"></i>
                                     </button>
                                 </div>

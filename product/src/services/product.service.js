@@ -8,6 +8,10 @@ class ProductService{
     static async deleteProductById(id) {
         return await axiosInstance.delete(`/products/${id}`)
     }
+
+    static async createProduct(data) {
+        return await axiosInstance.post("/products", data)
+    }
 }
 
 export default ProductService;
