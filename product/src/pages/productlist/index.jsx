@@ -35,8 +35,13 @@ function ProductList() {
                     >
                         <option value="">All Categories</option>
                     </select>
+                    {/* Nút Submit */}
+                    <button className="btn btn-secondary" type="submit">
+                        Submit
+                    </button>
                 </div>
             </div>
+
 
             {/* Product Table */}
             <div className="table-responsive">
