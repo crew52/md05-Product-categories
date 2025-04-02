@@ -13,6 +13,14 @@ class ProductService{
         return await axiosInstance.post("/products", data)
     }
 
+    static async getProductById(id) {
+        return await axiosInstance.get(`/products/${id}?_expand=category`)
+    }
+
+    static async updateProduct(data, id) {
+        return await axiosInstance.put(`/products/${id}`, data)
+    }
+
     static async getProductsByNameAndCategory(name, categoryId) {
         const queryParams = [];
         if (name) queryParams.push(`name_like=${name}`);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from "react";
-import { Link } from "react-router";
+import {Link} from "react-router";
 import ProductService from "../../services/product.service.js";
 import {toast} from "react-toastify";
 import CategoryService from "../../services/category.service.js";
@@ -94,14 +94,14 @@ function ProductList() {
                             placeholder="Search by name..."
                             value={searchKeyword}
                             onChange={handleSearchInputChange}
-                            style={{ width: "200px" }}
+                            style={{width: "200px"}}
                         />
 
                         <select
                             className="form-select"
                             value={selectedCategory}
                             onChange={handleCategoryChange}
-                            style={{ width: "150px" }}
+                            style={{width: "150px"}}
                         >
                             <option value="">All Categories</option>
                             {categories.map(category => (
@@ -145,9 +145,11 @@ function ProductList() {
                                         <button className="btn btn-info btn-sm me-1">
                                             <i className="bi bi-eye"></i>
                                         </button>
-                                        <button className="btn btn-warning btn-sm me-1">
-                                            <i className="bi bi-pencil"></i>
-                                        </button>
+                                        <Link to={`/products/${product.id}/edit`}>
+                                            <button className="btn btn-warning btn-sm me-1">
+                                                <i className="bi bi-pencil"></i>
+                                            </button>
+                                        </Link>
                                         <button className="btn btn-danger btn-sm"
                                                 onClick={() => handleDeleteProduct(product.id)}>
                                             <i className="bi bi-trash"></i>

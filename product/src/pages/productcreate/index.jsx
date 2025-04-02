@@ -33,7 +33,7 @@ function ProductCreate() {
             stock: Yup.number().required("Stock is required").positive("Must be a positive number"),
         }),
         onSubmit: values => {
-            const productData = { ...values, createdAt: new Date().toISOString() };
+            const productData = { ...values, createdAt: new Date().toISOString().split('T')[0] };
             ProductService.createProduct(productData).then(() => {
                 toast.success("Product created successfully");
                 navigate("/products");
