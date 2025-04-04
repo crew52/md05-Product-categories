@@ -43,7 +43,7 @@ function MusicList() {
             <div className="container mb-3">
                 <div className="d-flex justify-content-between align-items-center">
                     {/* Nút Create */}
-                    <Link to="/products/create">
+                    <Link to="/musics/create">
                         <button className="btn btn-primary">
                             <i className="bi bi-plus-lg"></i> Create
                         </button>

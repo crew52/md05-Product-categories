@@ -5,6 +5,7 @@ import ProductCreate from "./pages/productcreate/index.jsx";
 import ProductEdit from "./pages/productedit/index.jsx";
 import ProductDetail from "./pages/productdetail/index.jsx";
 import MusicList from "./pages/music/musicList/index.jsx";
+import MusicCreate from "./pages/music/musicCreate/index.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/products/:pid/detail" element={<ProductDetail/>} />
 
             <Route path={"/musics"} element={<MusicList/>}></Route>
+            <Route path="/musics/create" element={<MusicCreate/>} />
         </Routes>
     </>
   )
