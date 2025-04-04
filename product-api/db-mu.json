@@ -1,0 +1,40 @@
+{
+  "songs": [
+    {
+      "id": 1,
+      "title": "Bài Hát 1",
+      "singer": "Ca Sĩ 1",
+      "composer": "Nhạc Sĩ 1",
+      "duration": "3:45",
+      "likes": 2500,
+      "status": "Công Khai"
+    },
+    {
+      "id": 2,
+      "title": "Bài Hát 2",
+      "singer": "Ca Sĩ 2",
+      "composer": "Nhạc Sĩ 2",
+      "duration": "4:10",
+      "likes": 4300,
+      "status": "Công Khai"
+    },
+    {
+      "id": 3,
+      "title": "Bài Hát 3",
+      "singer": "Ca Sĩ 3",
+      "composer": "Nhạc Sĩ 3",
+      "duration": "3:30",
+      "likes": 1700,
+      "status": "Công Khai"
+    },
+    {
+      "title": "test add ",
+      "singer": "Dung",
+      "composer": "Viet Anh",
+      "duration": "11:12",
+      "likes": 0,
+      "status": "Lưu Trữ",
+      "id": 4
+    }
+  ]
+}
