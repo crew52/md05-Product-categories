@@ -47,6 +47,15 @@ function MusicList() {
         }
     };
 
+    // hàm cập nhật trạng thái bài hát
+    const handleUpdateStatus = (id, newStatus) => {
+        MusicService.updateStatusUser(newStatus, id).then(res => {
+            toast.success('Cập nhật trạng thái thành công!');
+            setReloadData(!reloadData);  // reload dữ liệu sau khi cập nhật
+        }).catch(err => {
+            toast.error('Cập nhật trạng thái thất bại!');
+        });
+    };
 
     return (
         <div className="container mt-4">
@@ -106,10 +115,21 @@ function MusicList() {
                                 <td>{product.duration}</td>
                                 <td>{product.likes}</td>
                                 <td>{product.status}</td>
-                                <td>
-                                    <div className="d-flex justify-content-center">
-                                        <p>{product.status}</p>
-                                    </div>
+                                <td className="text-center">
+                                    <button
+                                        className={`btn ${product.status === 'Công Khai' ? 'btn-success' : 'btn-secondary'}`}
+                                        onClick={() => {
+                                            // Hiển thị hộp thoại xác nhận
+                                            const confirmed = window.confirm(
+                                                `Are you sure you want to ${product.status === 'Công Khai' ? 'Lưu Trữ' : 'Công Khai'} this music?`
+                                            );
+                                            if (confirmed) {
+                                                handleUpdateStatus(product.id, product.status === 'Công Khai' ? 'Lưu Trữ' : 'Công Khai');
+                                            }
+                                        }}
+                                    >
+                                        {product.status === 'Công Khai' ? 'Lưu Trữ' : 'Công Khai'}
+                                    </button>
                                 </td>
                             </tr>
                         ))

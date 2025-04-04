@@ -12,6 +12,10 @@ class MusicService{
     static async createMusic(data) {
         return await axiosInstance.post("/songs", data)
     }
+
+    static async updateStatusUser(newStatus, id){
+        return await axiosInstance.patch(`/songs/${id}`, {status: newStatus})
+    }
 }
 
 export default MusicService;
