@@ -8,6 +8,9 @@ function MusicList() {
     // state danh sach product
     const [musics, setMusics] = useState([]);
 
+    // state để lưu bài hát được chọn
+    const [selectedMusic, setSelectedMusic] = useState(null);
+
     // state load lai data
     const [reloadData, setReloadData] = useState(false);
 
@@ -32,6 +35,16 @@ function MusicList() {
 
     const handleSearchInputChange = (e) => {
         setSearchKeyword(e.target.value);
+    };
+
+    // hàm để hiển thị thông tin chi tiết của bài hát
+    const handleMusicClick = (music) => {
+        // Toggle giữa hiển thị và ẩn thông tin bài hát
+        if (selectedMusic && selectedMusic.id === music.id) {
+            setSelectedMusic(null); // Ẩn nếu đã chọn bài hát này
+        } else {
+            setSelectedMusic(music); // Hiển thị chi tiết bài hát
+        }
     };
 
 
@@ -85,7 +98,7 @@ function MusicList() {
                     <tbody>
                     {musics.length > 0 ? (
                         musics.map((product, index) => (
-                            <tr key={product.id}>
+                            <tr key={product.id} onClick={() => handleMusicClick(product)}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{product.title}</td>
                                 <td>{product.singer}</td>
@@ -109,6 +122,24 @@ function MusicList() {
                 </table>
 
             </div>
+
+            {/* Nếu có bài hát được chọn */}
+            {selectedMusic && (
+                <div className="mt-4">
+                    <h3>{selectedMusic.title}</h3>
+                    <p><strong>Singer:</strong> {selectedMusic.singer}</p>
+                    <p><strong>Composer:</strong> {selectedMusic.composer}</p>
+                    <p><strong>Duration:</strong> {selectedMusic.duration}</p>
+                    <p><strong>Likes:</strong> {selectedMusic.likes}</p>
+                    <p><strong>Status:</strong> {selectedMusic.status}</p>
+
+                    {/* Nút phát nhạc */}
+                    <audio controls>
+                        <source src={`http://localhost:3000/music/${selectedMusic.id}`} type="audio/mp3" />
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            )}
         </div>
     );
 }
